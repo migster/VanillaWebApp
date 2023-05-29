@@ -47,7 +47,7 @@
 
     async function getChatContext(){
         console.log("getChatContext");
-        let response = await fetch("https://getcallwebtoken.azurewebsites.net/api/httptrigger1");
+        let response = await fetch("https://getcallwebtoken.azurewebsites.net/api/httptrigger1"{mode:"no-cors"});
         let data = await response.json();
         return data;
     }
