@@ -36,7 +36,10 @@
                 token: response.userToken
                 },
                 content,
-                { key: new Date() }
+                {
+                    formFactor: 'mobile',
+                    key: new Date()
+                }
             );
         } else if (open) {
             open = !open;
