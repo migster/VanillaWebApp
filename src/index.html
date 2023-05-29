@@ -13,5 +13,43 @@
                     <div class='callWidget'></div>
                 </div>
             </div>
+            <script>
+              var open = false;
+              const button = document.querySelector('.widget');
+              const content = document.querySelector('.callWidget');
+              button.addEventListener('click', async function() {
+                  if(!open){
+                      open = !open;
+                      content.style.display = 'block';
+                      button.innerHTML = 'X';
+                      let response = await getChatContext();
+                      console.log(response);
+                      const callAdapter = await callComposite.loadCallComposite(
+                          {
+                          displayName: "Test User",
+                          locator: { participantIds: ['b7e3a6c7-1ca8-4657-95ec-d9780ea326b1']},
+                          userId: response.user,
+                          token: response.userToken
+                          },
+                          content,
+                          {
+                              formFactor: 'mobile',
+                              key: new Date()
+                          }
+                      );
+                  } else if (open) {
+                      open = !open;
+                      content.style.display = 'none';
+                      button.innerHTML = '?';
+                  }
+              });
+      
+              async function getAccessToken(){
+                  const response = await fetch('https://getcallwebtoken.azurewebsites.net/api/httptrigger1');
+                  const data = await response.json();
+                  return data.token;
+              }
+          </script>
+          <script src="https://github.com/ddematheu2/ACS-UI-Library-Widget/releases/download/widget/callComposite.js"></script>
         </body>
     </html>
