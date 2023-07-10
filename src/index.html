@@ -23,7 +23,21 @@
                         open = !open;
                         content.style.display = 'block';
                         button.innerHTML = 'X';
-                        //Add code to initialize call widget here
+                        let response = await getChatContext();
+                        console.log(response);
+                        const callAdapter = await callComposite.loadCallComposite(
+                            {
+                            displayName: "Test User",
+                            locator: { participantIds: ['b7e3a6c7-1ca8-4657-95ec-d9780ea326b1']},
+                            userId: response.user,
+                            token: response.userToken
+                            },
+                            content,
+                            {
+                                formFactor: 'mobile',
+                                key: new Date()
+                            }
+                        );
                     } else if (open) {
                         open = !open;
                         content.style.display = 'none';
@@ -32,7 +46,11 @@
                 });
         
                 async function getAccessToken(){
-                    //Add code to get access token here
+                    async function getAccessToken(){
+                    const response = await fetch('https://getcallwebtoken.azurewebsites.net/api/httptrigger1');
+                    const data = await response.json();
+                    return data.token;
+    }
                 }
             </script>
         </body>
