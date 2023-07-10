@@ -5,45 +5,6 @@
         <title>Call Widget App - Vanilla</title>
         <link rel="stylesheet" href="style.css">
         <script src="https://github.com/Azure/communication-ui-library/releases/latest/download/callComposite.js"></script>
-        
-<script>
-    var open = false;
-    const button = document.querySelector('.widget');
-    const content = document.querySelector('.callWidget');
-    button.addEventListener('click', async function() {
-        if(!open){
-            open = !open;
-            content.style.display = 'block';
-            button.innerHTML = 'X';
-            let response = await getChatContext();
-            console.log(response);
-            const callAdapter = await callComposite.loadCallComposite(
-                {
-                displayName: "Test User",
-                locator: {groupId: "b7e3a6c7-1ca8-4657-95ec-d9780ea326b1"},
-                userId: response.user,
-                token: response.userToken
-                },
-                content,
-                {
-                    formFactor: 'mobile',
-                    key: new Date()
-                }
-            );
-        } else if (open) {
-            open = !open;
-            content.style.display = 'none';
-            button.innerHTML = '?';
-        }
-    });
-
-    async function getChatContext(){
-        console.log("getChatContext");
-        let response = await fetch("https://getcallwebtoken.azurewebsites.net/api/httptrigger1");
-        let data = await response.json();
-        return data;
-    }
-</script>
     </head>
     <body>
         <div id="call-widget">
@@ -53,6 +14,45 @@
                 <div class='callWidget'></div>
             </div>
         </div>
+        <script>
+            var open = false;
+            const button = document.querySelector('.widget');
+            const content = document.querySelector('.callWidget');
+            button.addEventListener('click', async function() {
+                if(!open){
+                    open = !open;
+                    content.style.display = 'block';
+                    button.innerHTML = 'X';
+                    let response = await getChatContext();
+                    console.log(response);
+                    const callAdapter = await callComposite.loadCallComposite(
+                        {
+                        displayName: "Test User",
+                        locator: {groupId: "b7e3a6c7-1ca8-4657-95ec-d9780ea326b1"},
+                        userId: response.user,
+                        token: response.userToken
+                        },
+                        content,
+                        {
+                            formFactor: 'mobile',
+                            key: new Date()
+                        }
+                    );
+                } else if (open) {
+                    open = !open;
+                    content.style.display = 'none';
+                    button.innerHTML = '?';
+                }
+            });
+        
+            async function getChatContext(){
+                console.log("getChatContext");
+                let response = await fetch("https://getcallwebtoken.azurewebsites.net/api/httptrigger1");
+                let data = await response.json();
+                return data;
+            }
+        </script>
+        
     </body>
 </html>
 
