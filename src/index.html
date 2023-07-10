@@ -23,8 +23,6 @@
                         open = !open;
                         content.style.display = 'block';
                         button.innerHTML = 'X';
-                        let response = await getChatContext();
-                        console.log(response);
                         const callAdapter = await callComposite.loadCallComposite(
                             {
                             displayName: "Test User",
