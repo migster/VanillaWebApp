@@ -5,6 +5,27 @@
             <title>Call Widget App - Vanilla</title>
             <link rel="stylesheet" href="style.css">
             <script src="https://github.com/ddematheu2/ACS-UI-Library-Widget/releases/download/widget/callComposite.js"></script>
+            <script>
+                var open = false;
+                const button = document.querySelector('.widget');
+                const content = document.querySelector('.callWidget');
+                button.addEventListener('click', async function() {
+                    if(!open){
+                        open = !open;
+                        content.style.display = 'block';
+                        button.innerHTML = 'X';
+                        //Add code to initialize call widget here
+                    } else if (open) {
+                        open = !open;
+                        content.style.display = 'none';
+                        button.innerHTML = '?';
+                    }
+                });
+        
+                async function getAccessToken(){
+                    //Add code to get access token here
+                }
+            </script>
         </head>
         <body>
             <div id="call-widget">
